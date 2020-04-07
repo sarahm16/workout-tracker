@@ -54,7 +54,6 @@ app.get("/api/workouts", (req, res) => {
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-  console.log(id)
   db.workouts.findOne({
     _id: mongojs.ObjectId(req.params.id)
   }, (err, data) => {
