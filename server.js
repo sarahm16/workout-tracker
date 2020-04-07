@@ -32,11 +32,16 @@ app.put("/api/exercise/?", ({body}, res) => {
 })
 
 app.post("/api/workouts", ({body}, res) => {
-  console.log(body);
+    Workout.create(body)
+    .then(dbWorkout =>
+      res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    });  
 });
 
 app.get("/api/workouts", (req, res) => {
-  console.log('hello')
+  //console.log('hello')
   //send all workouts from db to front end in json format
   db.workouts.find({}, (err, data) => {
     console.log(data)
@@ -49,8 +54,6 @@ app.get("/api/workouts", (req, res) => {
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-  let id = req.params.id;
-  //console.log('req.body: ' + JSON.stringify(req.body));
   console.log(id)
   db.workouts.findOne({
     _id: mongojs.ObjectId(req.params.id)
@@ -81,16 +84,10 @@ app.get("/stats", (req, res) => {
 
 app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/exercise.html'));
+  // db.collections.workouts.insertOne({}, (err, data) => {
+  
+  // })
 });
-
-app.post("/exercise", (req, res) => {
-  Workout.create(req.body)
-    .then(dbWorkout =>
-      res.json(dbWorkout))
-    .catch(err => {
-      res.json(err);
-    });
-})
 
 //route that adds new exercise to db when user clicks add-another button in exercise.html
 
