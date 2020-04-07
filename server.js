@@ -50,7 +50,29 @@ app.get("/api/workouts", (req, res) => {
 
 app.put("/api/workouts/:id", (req, res) => {
   let id = req.params.id;
-  
+  //console.log('req.body: ' + JSON.stringify(req.body));
+  console.log(id)
+  db.workouts.findOne({
+    _id: mongojs.ObjectId(req.params.id)
+  }, (err, data) => {
+    let newExerciseArray = data.exercises;
+    newExerciseArray.push(req.body);
+
+    db.workouts.updateOne({
+      _id: mongojs.ObjectId(req.params.id)
+    },
+    {
+      $set: {
+        exercises: newExerciseArray
+      }
+    }, (err, data) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(data);
+      }
+    })
+  })
 })
 
 app.get("/stats", (req, res) => {
@@ -63,7 +85,7 @@ app.get("/exercise", (req, res) => {
 
 app.post("/exercise", (req, res) => {
   Workout.create(req.body)
-    .then(dbWorkout => 
+    .then(dbWorkout =>
       res.json(dbWorkout))
     .catch(err => {
       res.json(err);
