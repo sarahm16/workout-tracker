@@ -81,6 +81,16 @@ app.get("/stats", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/stats.html'))
 });
 
+app.get("/api/workouts/range", (req, res) => {
+  db.workouts.find({}, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(data);
+    }
+  })
+})
+
 app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/exercise.html'));
   // db.collections.workouts.insertOne({}, (err, data) => {
