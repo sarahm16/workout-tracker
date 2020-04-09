@@ -27,8 +27,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { use
 
 app.put("/api/exercise/?", ({body}, res) => {
   res.json(body);
-  //code that finds most recent workout from database
-  //populates fields with that data
 })
 
 app.post("/api/workouts", ({body}, res) => {
@@ -101,9 +99,6 @@ app.get("/api/workouts/range", (req, res) => {
 
 app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/exercise.html'));
-  // db.collections.workouts.insertOne({}, (err, data) => {
-  
-  // })
 });
 
 app.listen(PORT, () => {
