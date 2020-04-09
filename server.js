@@ -41,10 +41,18 @@ app.post("/api/workouts", ({body}, res) => {
 });
 
 app.get("/api/workouts", (req, res) => {
-  //console.log('hello')
   //send all workouts from db to front end in json format
   db.workouts.find({}, (err, data) => {
-    console.log(data)
+    //loop through exercises in most recent workout, add total duration
+    let totalDuration = 0;
+    for(let i=0; i<data[0].exercises.length; i++) {
+      totalDuration += data[0].exercises[i].duration
+    }
+    
+    //add total duration key value pair to data
+    data[0].totalDuration = totalDuration;
+
+    //handle errors, send data to front end (workout.js)
     if (err) {
       res.send(err);
     } else {
@@ -97,8 +105,6 @@ app.get("/exercise", (req, res) => {
   
   // })
 });
-
-//route that adds new exercise to db when user clicks add-another button in exercise.html
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
