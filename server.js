@@ -41,14 +41,20 @@ app.post("/api/workouts", ({body}, res) => {
 app.get("/api/workouts", (req, res) => {
   //send all workouts from db to front end in json format
   db.workouts.find({}, (err, data) => {
+
     //loop through exercises in most recent workout, add total duration
     let totalDuration = 0;
-    for(let i=0; i<data[0].exercises.length; i++) {
-      totalDuration += data[0].exercises[i].duration
+
+    //index of most recent workout
+    let index = data.length-1;
+
+    for(let i=0; i<data[index].exercises.length; i++) {
+      console.log(data[index].exercises[i].duration)
+      totalDuration += data[index].exercises[i].duration
     }
     
     //add total duration key value pair to data
-    data[0].totalDuration = totalDuration;
+    data[index].totalDuration = totalDuration;
 
     //handle errors, send data to front end (workout.js)
     if (err) {
