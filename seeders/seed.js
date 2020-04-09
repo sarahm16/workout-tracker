@@ -121,26 +121,26 @@ let workoutSeed = [
         sets: 4
       }
     ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-1),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bench",
-        duration: 30,
-        distance: 2
-      }
-    ]
   }
+  // {
+  //   day: new Date().setDate(new Date().getDate()-1),
+  //   exercises: [
+  //     {
+  //       type: "resistance",
+  //       name: "Bench",
+  //       duration: 30,
+  //       distance: 2
+  //     }
+  //   ]
+  // }
 ];
 
 db.deleteMany({})
-  .then(() => db.collection.insertMany(workoutSeed))
-  .then(data => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
-  })
+  // .then(() => db.collection.insertMany(workoutSeed))
+  // .then(data => {
+  //   console.log(data.result.n + " records inserted!");
+  //   process.exit(0);
+  // })
   .catch(err => {
     console.error(err);
     process.exit(1);
