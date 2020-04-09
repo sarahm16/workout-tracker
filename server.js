@@ -4,17 +4,20 @@ const mongoose = require("mongoose");
 const mongojs = require("mongojs");
 const path = require("path");
 
+//defining which port to use
 const PORT = process.env.PORT || 3000;
 
-const app = express();
-
+//requiring mongo model/schema
 const Workout = require("./models/exerciseModel");
 
 const databaseUrl = "workout";
 const collections = ["workouts"];
 
+//connecting to the mongo database
 const db = mongojs(databaseUrl, collections);
 
+//setting up express
+const app = express();
 
 app.use(logger("dev"));
 
@@ -25,10 +28,7 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
-app.put("/api/exercise/?", ({body}, res) => {
-  res.json(body);
-})
-
+//create a new workout model from empty object, send json to front end where an empty document will be added to the collection
 app.post("/api/workouts", ({body}, res) => {
     Workout.create(body)
     .then(dbWorkout =>
@@ -59,13 +59,16 @@ app.get("/api/workouts", (req, res) => {
   })
 })
 
+//finds workout with specific id
 app.put("/api/workouts/:id", (req, res) => {
   db.workouts.findOne({
     _id: mongojs.ObjectId(req.params.id)
   }, (err, data) => {
+    //add new exercise to that workout's exercise array
     let newExerciseArray = data.exercises;
     newExerciseArray.push(req.body);
 
+    //update exercise array in database
     db.workouts.updateOne({
       _id: mongojs.ObjectId(req.params.id)
     },
@@ -73,7 +76,9 @@ app.put("/api/workouts/:id", (req, res) => {
       $set: {
         exercises: newExerciseArray
       }
-    }, (err, data) => {
+    },
+    //handle errors and return json data to front end (workout.js)
+    (err, data) => {
       if (err) {
         res.send(err);
       } else {
@@ -83,10 +88,12 @@ app.put("/api/workouts/:id", (req, res) => {
   })
 })
 
+//routes user to stats.html
 app.get("/stats", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/stats.html'))
 });
 
+//finds all workouts in database, sends to front end (workout.js) in json format
 app.get("/api/workouts/range", (req, res) => {
   db.workouts.find({}, (err, data) => {
     if (err) {
@@ -97,6 +104,7 @@ app.get("/api/workouts/range", (req, res) => {
   })
 })
 
+//routes user to exercise.html
 app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + '/public/exercise.html'));
 });
