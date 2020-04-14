@@ -1,7 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-// const mongojs = require("mongojs");
 const path = require("path");
 
 //defining which port to use
@@ -9,12 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 //requiring mongo model/schema
 const Workout = require("./models/exerciseModel");
-
-// const databaseUrl = "workout";
-// const collections = ["workouts"];
-
-// //connecting to the mongo database
-// const db = mongojs(databaseUrl, collections);
 
 //setting up express
 const app = express();
@@ -56,10 +49,10 @@ app.get("/api/workouts", (req, res) => {
         totalDuration += data[index].exercises[i].duration
       }
       //add total duration key value pair to data
-      data[index].totalDuration = totalDuration;
+      data[index]["__v"] = totalDuration;
       console.log('data[index].totalDuration: ', data[index].totalDuration)
     }
-    
+
     
     //handle errors, send data to front end (workout.js)
     if (err) {
