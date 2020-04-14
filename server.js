@@ -1,7 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const mongojs = require("mongojs");
+//const mongojs = require("mongojs");
 const path = require("path");
 
 //defining which port to use
@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 3000;
 //requiring mongo model/schema
 const Workout = require("./models/exerciseModel");
 
-const databaseUrl = "workout";
-const collections = ["workouts"];
+//const databaseUrl = "workout";
+//const collections = ["workouts"];
 
 //connecting to the mongo database
-const db = mongojs(databaseUrl, collections);
+//const db = mongojs(databaseUrl, collections);
 
 //setting up express
 const app = express();
