@@ -24,5 +24,8 @@ Use the app! <br />
 
 <a href="https://gentle-coast-21252.herokuapp.com/">https://gentle-coast-21252.herokuapp.com/</a>
 
+<br />
+<br />
+
 <img src="public/images/workout.png">
 <img src="public/images/stats.png">

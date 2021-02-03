@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://user:userpassword@cluster0.mufz9.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 //create a new workout model from empty object, send json to front end where an empty document will be added to the collection
 app.post("/api/workouts", ({body}, res) => {
