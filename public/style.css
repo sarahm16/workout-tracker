@@ -25,6 +25,10 @@ nav {
   font-size: 1.2rem;
 }
 
+#fitness-tracker {
+  margin-right: 30px;
+}
+
 a,
 a:hover,
 a:active,
