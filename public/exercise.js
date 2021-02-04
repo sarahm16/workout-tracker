@@ -87,7 +87,7 @@ function validateInputs() {
   }
 
   if (isValid) {
-    completeButton.removeAttribute("disabled");
+    //completeButton.removeAttribute("disabled");
     addButton.removeAttribute("disabled");
   } else {
     //completeButton.setAttribute("disabled", true);
@@ -124,7 +124,7 @@ async function handleFormSubmit(event) {
 
   await API.addExercise(workoutData);
   clearInputs();
-  addButton.setAttribute("disabled", true);
+  //addButton.setAttribute("disabled", true);
   toast.classList.add("success");
 }
 
@@ -144,6 +144,8 @@ function clearInputs() {
   repsInput.value = "";
   resistanceDurationInput.value = "";
   weightInput.value = "";
+
+  addButton.setAttribute("disabled", true);  
 }
 
 if (workoutTypeSelect) {
