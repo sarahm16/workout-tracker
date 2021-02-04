@@ -90,7 +90,7 @@ function validateInputs() {
     completeButton.removeAttribute("disabled");
     addButton.removeAttribute("disabled");
   } else {
-    completeButton.setAttribute("disabled", true);
+    //completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
 }
@@ -114,8 +114,17 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
+  if(workoutData === {type: 'cardio'}) {
+    console.log('not a new workout')
+  }
+
+  console.log(workoutData)
+
+  // completeButton.setAttribute("disabled", true);
+
   await API.addExercise(workoutData);
   clearInputs();
+  addButton.setAttribute("disabled", true);
   toast.classList.add("success");
 }
 
