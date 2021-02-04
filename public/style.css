@@ -450,6 +450,17 @@ form > button {
     width: 200px;
     text-align: center;
   }
+
+  header {
+    padding-top: 35px;
+    height: 110px;
+  }
+
+  form .workout-type,
+  form .cardio-form div,
+  form .resistance-form div {
+    margin-top: 10px;
+}
 }
 
 
