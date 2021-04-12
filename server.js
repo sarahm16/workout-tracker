@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
+const compression = require('compression');
 
 //defining which port to use
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ const Workout = require("./models/exerciseModel");
 
 //setting up express
 const app = express();
+app.use(compression());
 
 app.use(logger("dev"));
 
